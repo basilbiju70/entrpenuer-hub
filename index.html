@@ -80,14 +80,18 @@
     <p class="mb-5 text-gray-600">Join 24/7 video rooms filled with startup founders, investors</p>
   </section>
 
-
-
-  <!-- Room Buttons -->
+  <!-- Room Buttons as Circles -->
   <section class="px-4">
     <h3 class="text-lg font-semibold mb-4">Live Conversations</h3>
-    <div class="grid grid-cols-2 gap-3">
-      <button class="bg-black text-white py-2 rounded">Validate Ideas</button>
-      <button class="bg-black text-white py-2 rounded">Growth Hacks</button>
+    <div class="flex justify-center gap-10">
+      <div class="flex flex-col items-center">
+        <button class="w-20 h-20 rounded-full bg-black"></button>
+        <span class="mt-2 text-sm font-medium">Validate Ideas</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <button class="w-20 h-20 rounded-full bg-black"></button>
+        <span class="mt-2 text-sm font-medium">Growth Hacks</span>
+      </div>
     </div>
   </section>
 
@@ -115,8 +119,7 @@
       sidebar.style.left = isOpen ? '-250px' : '0px';
       overlay.style.display = isOpen ? 'none' : 'block';
     }
-  </script>
-  <script>
+
     function toggleImage() {
       const img = document.getElementById('hiddenImage');
       img.classList.toggle('hidden');
