@@ -54,12 +54,6 @@
   </style>
 </head>
 <body class="bg-white text-gray-800">
-<script>
-  function showImage() {
-    document.getElementById('donateImage').classList.remove('hidden');
-    document.getElementById('donateImage').scrollIntoView({ behavior: 'smooth' });
-  }
-</script>
 
   <!-- Header -->
   <header class="flex justify-between items-center p-4 border-b">
@@ -73,7 +67,7 @@
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <span class="close-btn" onclick="toggleMenu()">×</span>
-    <a href="#" onclick="showImage()">Donate</a>
+    <a href="#donate">Donate</a>
     <a href="#buy-time">Buy Time</a>
   </div>
 
@@ -145,10 +139,6 @@
     img.classList.toggle('hidden');
   }
 </script>
-<!-- Hidden Cat Image Section -->
-<div id="donateImage" class="hidden mt-10 text-center">
-  <img src="cat-cooking.png" alt="Cooking Cat" class="mx-auto max-w-xs rounded-lg shadow-lg" />
-</div>
 
 </body>
 </html>
