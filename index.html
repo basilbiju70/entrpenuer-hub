@@ -5,14 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EntreChat - Where Entrepreneurs Never Stop Talking</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 220px;
+      height: 100%;
+      background-color: #111;
+      color: white;
+      padding-top: 60px;
+      transition: 0.3s;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar a {
+      padding: 14px 20px;
+      text-decoration: none;
+      color: #fff;
+      display: block;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+  </style>
 </head>
 <body class="bg-white text-gray-800">
 
   <!-- Header -->
   <header class="flex justify-between items-center p-4 border-b">
-    <h1 class="text-xl font-bold text-blue-600">EntreLive</h1>
+    <div class="flex items-center gap-4">
+      <h1 class="text-xl font-bold text-blue-600">EntreFix</h1>
+      <button class="text-2xl" onclick="toggleMenu()">☰</button>
+    </div>
     <button class="text-sm border px-4 py-1 rounded hover:bg-blue-600 hover:text-white">Sign in</button>
   </header>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <a href="#donate">Donate</a>
+    <a href="#buy-time">Buy Time</a>
+  </div>
 
   <!-- Hero Section -->
   <section class="text-center px-4 py-10">
@@ -25,9 +61,22 @@
     <h3 class="text-lg font-semibold mb-4">Jump Into Live Conversations</h3>
     <div class="grid grid-cols-2 gap-3">
       <button class="bg-black text-white py-2 rounded">Validate Ideas</button>
-      <button class="bg-black text-white py-2 rounded">Co founder Check</button>
+      <button class="bg-black text-white py-2 rounded">Growth Hacks</button>
+      <button class="bg-black text-white py-2 rounded">AI</button>
+      <button class="bg-black text-white py-2 rounded">Founders Meet</button>
+      <button class="bg-black text-white py-2 rounded">Marketing</button>
+      <button class="bg-black text-white py-2 rounded">Pitch Practice</button>
+      <button class="bg-black text-white py-2 rounded">Funding</button>
+      <button class="bg-black text-white py-2 rounded">User Feedback</button>
     </div>
   </section>
+
+  <!-- Spacer -->
+  <div class="py-10 text-center">
+    <div class="text-4xl">+</div>
+    <h3 class="text-lg font-semibold mb-6 text-center">Create Room</h3>
+  </div>
+
   <!-- Why Choose Us -->
   <section class="bg-gray-50 px-4 py-10">
     <h3 class="text-lg font-semibold mb-6 text-center">Why Entrepreneurs Choose Us</h3>
@@ -67,7 +116,7 @@
 
   <!-- Footer -->
   <footer class="text-sm text-center text-gray-500 px-4 py-6 border-t">
-    <p>© 2024 EntreLive. Built for entrepreneurs, by entrepreneurs.</p>
+    <p>© 2024 EntreFix. Built for entrepreneurs, by entrepreneurs.</p>
     <div class="mt-2 grid grid-cols-2 gap-2 justify-center text-xs text-gray-400">
       <div>
         <p><strong>Platform</strong></p>
@@ -84,6 +133,14 @@
       <p>Help Center · Privacy Policy · Terms of Service</p>
     </div>
   </footer>
+
+  <!-- Sidebar Toggle Script -->
+  <script>
+    function toggleMenu() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.style.left = sidebar.style.left === '0px' ? '-250px' : '0px';
+    }
+  </script>
 
 </body>
 </html>
