@@ -12,24 +12,33 @@
       left: -250px;
       width: 220px;
       height: 100%;
-      background-color: #111;
-      color: white;
+      background-color: white;
+      color: #333;
       padding-top: 60px;
       transition: 0.3s;
       z-index: 1000;
       display: flex;
       flex-direction: column;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     }
 
     .sidebar a {
       padding: 14px 20px;
       text-decoration: none;
-      color: #fff;
+      color: #333;
       display: block;
     }
 
     .sidebar a:hover {
-      background-color: #575757;
+      background-color: #f1f1f1;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 22px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -46,6 +55,7 @@
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
+    <span class="close-btn" onclick="toggleMenu()">×</span>
     <a href="#donate">Donate</a>
     <a href="#buy-time">Buy Time</a>
   </div>
@@ -64,6 +74,7 @@
       <button class="bg-black text-white py-2 rounded">Growth Hacks</button>
     </div>
   </section>
+
   <!-- Footer -->
   <footer class="text-sm text-center text-gray-500 px-4 py-6 border-t">
     <p>© 2024 EntreFix. Built for entrepreneurs, by entrepreneurs.</p>
