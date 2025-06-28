@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -53,15 +53,18 @@
     }
   </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
 
   <!-- Header -->
-  <header class="flex justify-between items-center p-4 border-b">
+  <header class="flex justify-between items-center p-4 border-b dark:border-gray-700">
     <div class="flex items-center gap-4">
       <button class="text-2xl" onclick="toggleMenu()">☰</button>
     </div>
-    <h1 class="text-xl font-bold text-blue-600">EntreLive</h1>
-    <button class="text-sm border px-4 py-1 rounded hover:bg-blue-600 hover:text-white">Sign in</button>
+    <h1 class="text-xl font-bold text-blue-600 dark:text-blue-400">EntreLive</h1>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleDarkMode()" class="text-sm border px-3 py-1 rounded hover:bg-gray-800 hover:text-white dark:hover:bg-gray-100 dark:hover:text-black">Toggle Dark Mode</button>
+      <button class="text-sm border px-3 py-1 rounded hover:bg-blue-600 hover:text-white">Sign in</button>
+    </div>
   </header>
 
   <!-- Sidebar -->
@@ -76,20 +79,27 @@
 
   <!-- Hero Section -->
   <section class="text-center px-4 py-10">
-    <h2 class="text-2xl font-bold mb-2">Where Entrepreneurs <span class="text-blue-600">Never Stop Talking</span></h2>
-    <p class="mb-5 text-gray-600">Join 24/7 video rooms filled with startup founders, investors</p>
+    <h2 class="text-2xl font-bold mb-2">Where Entrepreneurs <span class="text-blue-600 dark:text-blue-400">Never Stop Talking</span></h2>
+    <p class="mb-5 text-gray-600 dark:text-gray-300">Join 24/7 video rooms filled with startup founders, investors</p>
   </section>
 
-  <!-- Room Buttons as Circles -->
-  <section class="px-4">
+  <!-- Room Buttons as Circles with Images -->
+  <section class="px-4 text-center">
     <h3 class="text-lg font-semibold mb-4">Live Conversations</h3>
     <div class="flex justify-center gap-10">
+      <!-- Validate Ideas -->
       <div class="flex flex-col items-center">
-        <button class="w-20 h-20 rounded-full bg-black"></button>
+        <div class="w-20 h-20 rounded-full bg-black dark:bg-white overflow-hidden flex items-center justify-center">
+          <img src="cat-cooking.png" alt="Validate" class="w-full h-full object-cover" />
+        </div>
         <span class="mt-2 text-sm font-medium">Validate Ideas</span>
       </div>
+
+      <!-- Growth Hacks -->
       <div class="flex flex-col items-center">
-        <button class="w-20 h-20 rounded-full bg-black"></button>
+        <div class="w-20 h-20 rounded-full bg-black dark:bg-white overflow-hidden flex items-center justify-center">
+          <img src="istockphoto-2057635984-612x612.jpg" alt="Growth Hacks" class="w-full h-full object-cover" />
+        </div>
         <span class="mt-2 text-sm font-medium">Growth Hacks</span>
       </div>
     </div>
@@ -99,8 +109,8 @@
   <div class="text-center mt-10">
     <!-- Line and Triangle -->
     <div class="relative flex justify-center items-center">
-      <div class="w-4/5 h-1 bg-black"></div>
-      <div onclick="toggleImage()" class="absolute bottom-[-10px] transform rotate-45 bg-black w-4 h-4 cursor-pointer"></div>
+      <div class="w-4/5 h-1 bg-black dark:bg-white"></div>
+      <div onclick="toggleImage()" class="absolute bottom-[-10px] transform rotate-45 bg-black dark:bg-white w-4 h-4 cursor-pointer"></div>
     </div>
 
     <!-- Hidden Image -->
@@ -109,13 +119,12 @@
     </div>
   </div>
 
-  <!-- Sidebar Toggle Script -->
+  <!-- Scripts -->
   <script>
     function toggleMenu() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('overlay');
       const isOpen = sidebar.style.left === '0px';
-
       sidebar.style.left = isOpen ? '-250px' : '0px';
       overlay.style.display = isOpen ? 'none' : 'block';
     }
@@ -123,6 +132,11 @@
     function toggleImage() {
       const img = document.getElementById('hiddenImage');
       img.classList.toggle('hidden');
+    }
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
     }
   </script>
 
