@@ -16,7 +16,7 @@
       color: #333;
       padding-top: 60px;
       transition: 0.3s;
-      z-index: 1000;
+      z-index: 1001;
       display: flex;
       flex-direction: column;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -40,6 +40,17 @@
       font-size: 22px;
       cursor: pointer;
     }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: none;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -56,9 +67,12 @@
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <span class="close-btn" onclick="toggleMenu()">×</span>
-    <a href="#donate">Buy Time</a>
-    <a href="#buy-time">Donate</a>
+    <a href="#donate">Donate</a>
+    <a href="#buy-time">Buy Time</a>
   </div>
+
+  <!-- Click-outside overlay -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <!-- Hero Section -->
   <section class="text-center px-4 py-10">
@@ -99,7 +113,11 @@
   <script>
     function toggleMenu() {
       const sidebar = document.getElementById('sidebar');
-      sidebar.style.left = sidebar.style.left === '0px' ? '-250px' : '0px';
+      const overlay = document.getElementById('overlay');
+      const isOpen = sidebar.style.left === '0px';
+
+      sidebar.style.left = isOpen ? '-250px' : '0px';
+      overlay.style.display = isOpen ? 'none' : 'block';
     }
   </script>
 
