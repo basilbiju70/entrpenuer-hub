@@ -67,7 +67,7 @@
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <span class="close-btn" onclick="toggleMenu()">×</span>
-  <a href="donate.html">Donate</a>
+    <a href="donate.html">Donate</a>
     <a href="#buy-time">Buy Time</a>
   </div>
 
@@ -80,30 +80,49 @@
     <p class="mb-5 text-gray-600">Join 24/7 video rooms filled with startup founders, investors</p>
   </section>
 
+  <!-- Stats Section -->
+  <section class="bg-blue-50 py-10">
+    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+      <div>
+        <h3 class="text-2xl font-bold text-blue-700">24/7</h3>
+        <p class="text-gray-600">Always Active</p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold text-blue-700">10k+</h3>
+        <p class="text-gray-600">Entrepreneurs</p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold text-blue-700">50+</h3>
+        <p class="text-gray-600">Countries</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Room Buttons -->
   <section class="px-4">
-    <h3 class="text-lg font-semibold mb-4"> Live Conversations</h3>
+    <h3 class="text-lg font-semibold mb-4">Live Conversations</h3>
     <div class="grid grid-cols-2 gap-3">
       <button class="bg-black text-white py-2 rounded">Validate Ideas</button>
       <button class="bg-black text-white py-2 rounded">Growth Hacks</button>
     </div>
   </section>
-<!-- Line + Triangle + Expandable Image -->
-<div class="text-center mt-10">
-  <!-- Line and Triangle -->
-  <div class="relative flex justify-center items-center">
-    <div class="w-4/5 h-1 bg-black"></div>
-    <div onclick="toggleImage()" class="absolute bottom-[-10px] transform rotate-45 bg-black w-4 h-4 cursor-pointer"></div>
-  </div>
 
-  <!-- Hidden Image -->
-  <div id="hiddenImage" class="mt-6 hidden transition-all duration-300 ease-in-out">
-    <img src="cat-cooking.png" alt="Cooking Cat" class="mx-auto max-w-xs rounded-lg shadow-lg"/>
+  <!-- Line + Triangle + Expandable Image -->
+  <div class="text-center mt-10">
+    <!-- Line and Triangle -->
+    <div class="relative flex justify-center items-center">
+      <div class="w-4/5 h-1 bg-black"></div>
+      <div onclick="toggleImage()" class="absolute bottom-[-10px] transform rotate-45 bg-black w-4 h-4 cursor-pointer"></div>
+    </div>
+
+    <!-- Hidden Image -->
+    <div id="hiddenImage" class="mt-6 hidden transition-all duration-300 ease-in-out">
+      <img src="cat-cooking.png" alt="Cooking Cat" class="mx-auto max-w-xs rounded-lg shadow-lg"/>
+    </div>
   </div>
-</div>
 
   <!-- Footer -->
-  <footer class="text-sm text-center text-gray-500 px-4 py-6 border-t">
+  <footer class="text-sm text-center text-gray-500 px-4 py-6 border-t mt-10">
     <p>© 2024 EntreFix. Built for entrepreneurs, by entrepreneurs.</p>
     <div class="mt-2 grid grid-cols-2 gap-2 justify-center text-xs text-gray-400">
       <div>
@@ -133,12 +152,12 @@
       overlay.style.display = isOpen ? 'none' : 'block';
     }
   </script>
-<script>
-  function toggleImage() {
-    const img = document.getElementById('hiddenImage');
-    img.classList.toggle('hidden');
-  }
-</script>
+  <script>
+    function toggleImage() {
+      const img = document.getElementById('hiddenImage');
+      img.classList.toggle('hidden');
+    }
+  </script>
 
 </body>
 </html>
