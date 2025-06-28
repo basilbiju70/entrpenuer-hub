@@ -54,6 +54,19 @@
   </style>
 </head>
 <body class="bg-white text-gray-800">
+<!-- Line + Triangle + Expandable Image -->
+<div class="text-center mt-10">
+  <!-- Line and Triangle -->
+  <div class="relative flex justify-center items-center">
+    <div class="w-4/5 h-1 bg-black"></div>
+    <div onclick="toggleImage()" class="absolute bottom-[-10px] transform rotate-45 bg-black w-4 h-4 cursor-pointer"></div>
+  </div>
+
+  <!-- Hidden Image -->
+  <div id="hiddenImage" class="mt-6 hidden transition-all duration-300 ease-in-out">
+    <img src="cat-cooking.png" alt="Cooking Cat" class="mx-auto max-w-xs rounded-lg shadow-lg"/>
+  </div>
+</div>
 
   <!-- Header -->
   <header class="flex justify-between items-center p-4 border-b">
@@ -120,6 +133,12 @@
       overlay.style.display = isOpen ? 'none' : 'block';
     }
   </script>
+<script>
+  function toggleImage() {
+    const img = document.getElementById('hiddenImage');
+    img.classList.toggle('hidden');
+  }
+</script>
 
 </body>
 </html>
