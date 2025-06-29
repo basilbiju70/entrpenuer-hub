@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EntreLive - Where Entrepreneurs Never Stop Talking</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
     .sidebar {
       position: fixed;
@@ -21,18 +22,15 @@
       flex-direction: column;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     }
-
     .sidebar a {
       padding: 14px 20px;
       text-decoration: none;
       color: #333;
       display: block;
     }
-
     .sidebar a:hover {
       background-color: #f1f1f1;
     }
-
     .close-btn {
       position: absolute;
       top: 10px;
@@ -40,7 +38,6 @@
       font-size: 22px;
       cursor: pointer;
     }
-
     .overlay {
       position: fixed;
       top: 0;
@@ -51,80 +48,97 @@
       z-index: 1000;
       display: none;
     }
-
     .thumbnail-16by9 {
       width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
     }
+    #app {
+      display: none;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800 transition-colors duration-300">
 
-  <!-- Header -->
-  <header class="flex justify-between items-center p-4 border-b">
-    <div class="flex items-center gap-4">
-      <button class="text-2xl" onclick="toggleMenu()">☰</button>
-    </div>
-    <h1 class="text-xl font-bold text-blue-600">EntreLive</h1>
-    <div class="flex items-center gap-2">
-      <button class="text-sm border px-3 py-1 rounded hover:bg-blue-600 hover:text-white">Sign in</button>
-    </div>
-  </header>
-
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <span class="close-btn" onclick="toggleMenu()">×</span>
-    <a href="donate.html">Donate</a>
-    <a href="#buy-time">Buy Time</a>
-    <a href="videos.html">Videos</a>
-    <a href="creator-earnings.html">Creator Earnings</a>
-  </div>
-
-  <!-- Click-outside overlay -->
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-  <!-- Hero Section -->
-  <section class="text-center px-4 py-10">
-    <h2 class="text-2xl font-bold mb-2">Where Entrepreneurs <span class="text-blue-600">Never Stop Talking</span></h2>
-    <p class="mb-5 text-gray-600">Join 24/7 video rooms filled with startup founders, investors</p>
-  </section>
-
-  <!-- Room Buttons as Circles with Images -->
-  <section class="px-4 text-center">
-    <h3 class="text-lg font-semibold mb-4">Live Conversations</h3>
-    <div class="flex justify-center gap-10">
-      <!-- Validate Ideas -->
-      <div class="flex flex-col items-center">
-        <div class="w-20 h-20 rounded-full bg-black overflow-hidden flex items-center justify-center">
-          <img src="cat-cooking.png" alt="Validate" class="w-full h-full object-cover" />
-        </div>
-        <span class="mt-2 text-sm font-medium">Validate Ideas</span>
+  <div id="app">
+    <!-- Header -->
+    <header class="flex justify-between items-center p-4 border-b">
+      <div class="flex items-center gap-4">
+        <button class="text-2xl" onclick="toggleMenu()">☰</button>
       </div>
+      <h1 class="text-xl font-bold text-blue-600">EntreLive</h1>
+    </header>
 
-      <!-- Growth Hacks -->
-      <div class="flex flex-col items-center">
-        <div class="w-20 h-20 rounded-full bg-black overflow-hidden flex items-center justify-center">
-          <img src="istockphoto-2057635984-612x612.jpg" alt="Growth Hacks" class="w-full h-full object-cover" />
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <span class="close-btn" onclick="toggleMenu()">×</span>
+      <a href="donate.html">Donate</a>
+      <a href="#buy-time">Buy Time</a>
+      <a href="videos.html">Videos</a>
+      <a href="creator-earnings.html">Creator Earnings</a>
+    </div>
+
+    <!-- Click-outside overlay -->
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- Hero Section -->
+    <section class="text-center px-4 py-10">
+      <h2 class="text-2xl font-bold mb-2">Where Entrepreneurs <span class="text-blue-600">Never Stop Talking</span></h2>
+      <p class="mb-5 text-gray-600">Join 24/7 video rooms filled with startup founders, investors</p>
+    </section>
+
+    <!-- Room Buttons as Circles with Images -->
+    <section class="px-4 text-center">
+      <h3 class="text-lg font-semibold mb-4">Live Conversations</h3>
+      <div class="flex justify-center gap-10">
+        <div class="flex flex-col items-center">
+          <div class="w-20 h-20 rounded-full bg-black overflow-hidden flex items-center justify-center">
+            <img src="cat-cooking.png" alt="Validate" class="w-full h-full object-cover" />
+          </div>
+          <span class="mt-2 text-sm font-medium">Validate Ideas</span>
         </div>
-        <span class="mt-2 text-sm font-medium">Growth Hacks</span>
+        <div class="flex flex-col items-center">
+          <div class="w-20 h-20 rounded-full bg-black overflow-hidden flex items-center justify-center">
+            <img src="istockphoto-2057635984-612x612.jpg" alt="Growth Hacks" class="w-full h-full object-cover" />
+          </div>
+          <span class="mt-2 text-sm font-medium">Growth Hacks</span>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Line + Triangle + Expandable Image -->
-  <div class="text-center mt-10">
-    <div class="relative flex justify-center items-center">
-      <div class="w-4/5 h-1 bg-black"></div>
-      <div onclick="toggleImage()" class="absolute bottom-[-10px] transform rotate-45 bg-black w-4 h-4 cursor-pointer"></div>
-    </div>
-    <div id="hiddenImage" class="mt-6 hidden transition-all duration-300 ease-in-out">
-      <img src="cat-cooking.png" alt="Cooking Cat" class="mx-auto max-w-xs rounded-lg shadow-lg"/>
+    <!-- Line + Triangle + Expandable Image -->
+    <div class="text-center mt-10">
+      <div class="relative flex justify-center items-center">
+        <div class="w-4/5 h-1 bg-black"></div>
+        <div onclick="toggleImage()" class="absolute bottom-[-10px] transform rotate-45 bg-black w-4 h-4 cursor-pointer"></div>
+      </div>
+      <div id="hiddenImage" class="mt-6 hidden transition-all duration-300 ease-in-out">
+        <img src="cat-cooking.png" alt="Cooking Cat" class="mx-auto max-w-xs rounded-lg shadow-lg"/>
+      </div>
     </div>
   </div>
 
-  <!-- Scripts -->
   <script>
+    const supabase = supabase.createClient(
+      'https://smqspfyhssbzhyijpski.supabase.co',         // 🔁 replace this
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtcXNwZnloc3Niemh5aWpwc2tpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NDg3OTIsImV4cCI6MjA2NjQyNDc5Mn0.xWYo3pwCoBuZ8eOjApQcDpu7gXXAYVsuRq0vysVyfs8'     // 🔁 replace this
+    );
+
+    // Check login
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        document.getElementById('app').style.display = 'block';
+      } else {
+        // Not logged in → trigger Google Login
+        supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: 'https://basilbiju70.github.io/entrpenuer-hub/'
+          }
+        });
+      }
+    });
+
     function toggleMenu() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('overlay');
