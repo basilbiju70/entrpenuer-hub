@@ -119,17 +119,15 @@
   </div>
 
   <script>
-    const supabase = supabase.createClient(
-      'https://smqspfyhssbzhyijpski.supabase.co',         // 🔁 replace this
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtcXNwZnloc3Niemh5aWpwc2tpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NDg3OTIsImV4cCI6MjA2NjQyNDc5Mn0.xWYo3pwCoBuZ8eOjApQcDpu7gXXAYVsuRq0vysVyfs8'     // 🔁 replace this
+    const supabase = window.supabase.createClient(
+      'https://smqspfyhssbzhyijpski.supabase.co',  // your Supabase URL
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtcXNwZnloc3Niemh5aWpwc2tpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NDg3OTIsImV4cCI6MjA2NjQyNDc5Mn0.xWYo3pwCoBuZ8eOjApQcDpu7gXXAYVsuRq0vysVyfs8'                          // your anon key
     );
 
-    // Check login
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         document.getElementById('app').style.display = 'block';
       } else {
-        // Not logged in → trigger Google Login
         supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
