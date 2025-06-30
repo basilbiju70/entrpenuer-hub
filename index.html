@@ -48,13 +48,8 @@
       z-index: 1000;
       display: none;
     }
-    .thumbnail-16by9 {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-    }
     #app {
-      display: none;
+      display: block;
     }
   </style>
 </head>
@@ -74,8 +69,8 @@
       <span class="close-btn" onclick="toggleMenu()">×</span>
       <a href="donate.html">Donate</a>
       <a href="#buy-time">Buy Time</a>
-      <a href="videos.html">Videos</a>
-      <a href="creator-earnings.html">Creator Earnings</a>
+      <a href="#" onclick="signIn()">Sign In</a>
+      <a href="#" onclick="signOut()">Logout</a>
     </div>
 
     <!-- Click-outside overlay -->
@@ -89,20 +84,44 @@
 
     <!-- Room Buttons as Circles with Images -->
     <section class="px-4 text-center">
-      <h3 class="text-lg font-semibold mb-4">Live Conversations</h3>
-      <div class="flex justify-center gap-10">
+      <h3 class="text-lg font-semibold mb-4">
+        Live Conversations
+        <button onclick="showRules()" title="Rules" class="ml-2 text-blue-600 font-bold text-lg">?</button>
+      </h3>
+      <div class="flex justify-center flex-wrap gap-10">
+
+        <!-- Validate Ideas -->
         <div class="flex flex-col items-center">
-          <div class="w-20 h-20 rounded-full bg-black overflow-hidden flex items-center justify-center">
-            <img src="cat-cooking.png" alt="Validate" class="w-full h-full object-cover" />
+          <div class="w-20 h-20 rounded-full bg-black overflow-hidden flex items-center justify-center text-white text-sm">
+            VI
           </div>
           <span class="mt-2 text-sm font-medium">Validate Ideas</span>
         </div>
+
+        <!-- Growth Hacks -->
         <div class="flex flex-col items-center">
           <div class="w-20 h-20 rounded-full bg-black overflow-hidden flex items-center justify-center">
             <img src="istockphoto-2057635984-612x612.jpg" alt="Growth Hacks" class="w-full h-full object-cover" />
           </div>
           <span class="mt-2 text-sm font-medium">Growth Hacks</span>
         </div>
+
+        <!-- User Feedback -->
+        <div class="flex flex-col items-center">
+          <div class="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-sm">
+            UF
+          </div>
+          <span class="mt-2 text-sm font-medium">User Feedback</span>
+        </div>
+
+        <!-- Chit Chat -->
+        <div class="flex flex-col items-center">
+          <div class="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-sm">
+            CC
+          </div>
+          <span class="mt-2 text-sm font-medium">Chit Chat</span>
+        </div>
+
       </div>
     </section>
 
@@ -118,24 +137,25 @@
     </div>
   </div>
 
-  <script>
+  <  <script>
     const supabase = window.supabase.createClient(
       'https://smqspfyhssbzhyijpski.supabase.co',  // your Supabase URL
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtcXNwZnloc3Niemh5aWpwc2tpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NDg3OTIsImV4cCI6MjA2NjQyNDc5Mn0.xWYo3pwCoBuZ8eOjApQcDpu7gXXAYVsuRq0vysVyfs8'                          // your anon key
-    );
+    function signIn() {
+      supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: 'https://basilbiju70.github.io/entrpenuer-hub/'
+        }
+      });
+    }
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        document.getElementById('app').style.display = 'block';
-      } else {
-        supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: 'https://basilbiju70.github.io/entrpenuer-hub/'
-          }
-        });
-      }
-    });
+    function signOut() {
+      supabase.auth.signOut().then(() => {
+        alert("Signed out");
+        window.location.reload();
+      });
+    }
 
     function toggleMenu() {
       const sidebar = document.getElementById('sidebar');
@@ -148,6 +168,10 @@
     function toggleImage() {
       const img = document.getElementById('hiddenImage');
       img.classList.toggle('hidden');
+    }
+
+    function showRules() {
+      alert("Participants must discuss only the room's designated topic. Off-topic comments, especially in 'Validate Ideas', may result in a ban");
     }
   </script>
 
