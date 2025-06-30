@@ -16,21 +16,24 @@
       background-color: white;
       color: #333;
       padding-top: 60px;
-      transition: 0.3s;
+      transition: left 0.3s ease-in-out;
       z-index: 1001;
       display: flex;
       flex-direction: column;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     }
+
     .sidebar a {
       padding: 14px 20px;
       text-decoration: none;
       color: #333;
       display: block;
     }
+
     .sidebar a:hover {
       background-color: #f1f1f1;
     }
+
     .close-btn {
       position: absolute;
       top: 10px;
@@ -38,6 +41,7 @@
       font-size: 22px;
       cursor: pointer;
     }
+
     .overlay {
       position: fixed;
       top: 0;
@@ -48,6 +52,7 @@
       z-index: 1000;
       display: none;
     }
+
     #app {
       display: block;
     }
@@ -137,10 +142,9 @@
     </div>
   </div>
 
-  <  <script>
-    const supabase = window.supabase.createClient(
-      'https://smqspfyhssbzhyijpski.supabase.co',  // your Supabase URL
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtcXNwZnloc3Niemh5aWpwc2tpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NDg3OTIsImV4cCI6MjA2NjQyNDc5Mn0.xWYo3pwCoBuZ8eOjApQcDpu7gXXAYVsuRq0vysVyfs8'                          // your anon key
+  <script>
+    const supabase = window.supabase.createClient('hello', 'Hi');
+
     function signIn() {
       supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -160,9 +164,17 @@
     function toggleMenu() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('overlay');
-      const isOpen = sidebar.style.left === '0px';
-      sidebar.style.left = isOpen ? '-250px' : '0px';
-      overlay.style.display = isOpen ? 'none' : 'block';
+      const isOpen = sidebar.classList.contains('open');
+
+      if (isOpen) {
+        sidebar.classList.remove('open');
+        sidebar.style.left = '-250px';
+        overlay.style.display = 'none';
+      } else {
+        sidebar.classList.add('open');
+        sidebar.style.left = '0px';
+        overlay.style.display = 'block';
+      }
     }
 
     function toggleImage() {
