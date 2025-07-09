@@ -1,204 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EntreLive - Where Entrepreneurs Never Stop Talking</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <meta charset="UTF-8">
+  <title>BIDBOARD</title>
   <style>
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 220px;
-      height: 100%;
-      background-color: white;
-      color: #333;
-      padding-top: 60px;
-      transition: left 0.3s ease-in-out;
-      z-index: 1001;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 2rem;
     }
-
-    .sidebar a {
-      padding: 14px 20px;
-      text-decoration: none;
-      color: #333;
-      display: block;
-    }
-
-    .sidebar a:hover {
-      background-color: #f1f1f1;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      font-size: 22px;
+    .cta-button {
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      border: none;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      font-size: 1rem;
       cursor: pointer;
     }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.3);
-      z-index: 1000;
-      display: none;
+    .leaderboard {
+      margin-top: 2rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      background: white;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    #app {
-      display: block;
+    .entry {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    .entry:last-child {
+      border-bottom: none;
+    }
+    #formContainer {
+      display: none;
+      margin-top: 1rem;
+    }
+    input {
+      padding: 0.5rem;
+      margin: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
   </style>
 </head>
-<body class="bg-white text-gray-800 transition-colors duration-300">
+<body>
 
-  <div id="app">
-    <!-- Header -->
-    <header class="flex justify-between items-center p-4 border-b">
-      <button class="text-2xl" onclick="toggleMenu()">☰</button>
-      <h1 class="text-2xl font-bold text-blue-600 text-center flex-1">EntreLive</h1>
-      <div style="width: 2rem;"></div> <!-- Filler to balance the hamburger -->
-    </header>
+  <h1>BIDBOARD</h1>
+  <p>Pay to flex. The internet’s most expensive leaderboard.</p>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-      <span class="close-btn" onclick="toggleMenu()">×</span>
-      <a href="donate.html">Donate</a>
-      <a href="#buy-time">Buy Time</a>
-      <a href="#" id="signInBtn" onclick="signIn()">Sign In</a>
-      <a href="#" id="logoutBtn" onclick="signOut()" style="display: none;">Logout</a>
-    </div>
+  <button class="cta-button" onclick="showForm()">CLAIM YOUR SPOT</button>
 
-    <!-- Click-outside overlay -->
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-    <!-- Hero Section -->
-    <section class="text-center px-4 py-10">
-      <h2 class="text-2xl font-bold mb-2">Where Entrepreneurs <span class="text-blue-600">Never Stop Talking</span></h2>
-      <p class="mb-5 text-gray-600">Join 24/7 video rooms filled with startup founders, investors</p>
-    </section>
-
-    <!-- Room Buttons as Circles with Descriptions -->
-    <section class="px-4 text-center">
-      <h3 class="text-lg font-semibold mb-4">
-        Live Conversations
-        <button onclick="showRules()" title="Rules" class="ml-2 text-blue-600 font-bold text-lg">?</button>
-      </h3>
-      <div class="flex justify-center flex-wrap gap-10">
-
-        <!-- Validate Ideas -->
-        <div class="flex flex-col items-center max-w-[180px]">
-          <div class="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-sm">VI</div>
-          <span class="mt-2 text-sm font-medium">Validate Ideas</span>
-          <p class="text-xs text-gray-500 mt-1">Pitch ideas, get feedback.</p>
-        </div>
-
-        <!-- Growth Hacks -->
-        <div class="flex flex-col items-center max-w-[180px]">
-          <div class="w-20 h-20 rounded-full bg-black overflow-hidden flex items-center justify-center">
-            <img src="istockphoto-2057635984-612x612.jpg" alt="Growth Hacks" class="w-full h-full object-cover" />
-          </div>
-          <span class="mt-2 text-sm font-medium">Growth Hacks</span>
-          <p class="text-xs text-gray-500 mt-1">Discuss marketing hacks and virality techniques.</p>
-        </div>
-
-        <!-- User Feedback -->
-        <div class="flex flex-col items-center max-w-[180px]">
-          <div class="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-sm">UF</div>
-          <span class="mt-2 text-sm font-medium">User Feedback</span>
-          <p class="text-xs text-gray-500 mt-1">Share your product and get UX feedback live.</p>
-        </div>
-
-        <!-- Chit Chat -->
-        <div class="flex flex-col items-center max-w-[180px]">
-          <div class="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-sm">CC</div>
-          <span class="mt-2 text-sm font-medium">Chit Chat</span>
-          <p class="text-xs text-gray-500 mt-1">Talk life, burnout, fundraising, or anything else.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Line + Triangle + Expandable Image -->
-    <div class="text-center mt-10">
-      <div class="relative flex justify-center items-center">
-        <div class="w-4/5 h-1 bg-black"></div>
-        <div onclick="toggleImage()" class="absolute bottom-[-10px] transform rotate-45 bg-black w-4 h-4 cursor-pointer"></div>
-      </div>
-      <div id="hiddenImage" class="mt-6 hidden transition-all duration-300 ease-in-out">
-        <img src="cat-cooking.png" alt="Cooking Cat" class="mx-auto max-w-xs rounded-lg shadow-lg"/>
-      </div>
-    </div>
+  <div id="formContainer">
+    <input type="text" id="nameInput" placeholder="Your Name" />
+    <input type="number" id="amountInput" placeholder="Amount in $" />
+    <button onclick="submitBid()">Submit</button>
   </div>
 
-  <script>
-    const supabase = window.supabase.createClient('https://smqspfyhssbzhyijpski.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtcXNwZnloc3Niemh5aWpwc2tpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NDg3OTIsImV4cCI6MjA2NjQyNDc5Mn0.xWYo3pwCoBuZ8eOjApQcDpu7gXXAYVsuRq0vysVyfs8'); 
+  <div class="leaderboard" id="leaderboard">
+    <!-- Entries will be loaded here -->
+  </div>
 
-    async function checkAuth() {
-      const { data: { session } } = await supabase.auth.getSession();
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-      const signInBtn = document.getElementById("signInBtn");
-      const logoutBtn = document.getElementById("logoutBtn");
+    const supabaseUrl = 'https://YOUR_SUPABASE_URL.supabase.co' // <-- Replace this
+    const supabaseKey = 'YOUR_SUPABASE_ANON_KEY' // <-- Replace this
+    const supabase = createClient(supabaseUrl, supabaseKey)
 
-      if (session) {
-        signInBtn.style.display = "none";
-        logoutBtn.style.display = "block";
+    function showForm() {
+      document.getElementById('formContainer').style.display = 'block';
+    }
+
+    async function submitBid() {
+      const name = document.getElementById('nameInput').value.trim();
+      const amount = parseFloat(document.getElementById('amountInput').value);
+
+      if (!name || isNaN(amount) || amount <= 0) {
+        alert("Enter valid name and amount");
+        return;
+      }
+
+      const { error } = await supabase.from('bids').insert([{ name, amount }]);
+
+      if (error) {
+        alert("Error saving bid");
+        console.error(error);
       } else {
-        signInBtn.style.display = "block";
-        logoutBtn.style.display = "none";
+        document.getElementById('nameInput').value = '';
+        document.getElementById('amountInput').value = '';
+        loadLeaderboard();
       }
     }
 
-    function signIn() {
-      supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: 'https://basilbiju70.github.io/entrpenuer-hub/'
-        }
-      });
-    }
+    async function loadLeaderboard() {
+      const { data, error } = await supabase
+        .from('bids')
+        .select('*')
+        .order('amount', { ascending: false });
 
-    function signOut() {
-      supabase.auth.signOut().then(() => {
-        alert("Signed out");
-        window.location.reload();
-      });
-    }
-
-    function toggleMenu() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('overlay');
-      const isOpen = sidebar.classList.contains('open');
-
-      if (isOpen) {
-        sidebar.classList.remove('open');
-        sidebar.style.left = '-250px';
-        overlay.style.display = 'none';
-      } else {
-        sidebar.classList.add('open');
-        sidebar.style.left = '0px';
-        overlay.style.display = 'block';
+      if (error) {
+        console.error("Fetch error", error);
+        return;
       }
+
+      const container = document.getElementById('leaderboard');
+      container.innerHTML = '';
+      data.forEach((entry, i) => {
+        const div = document.createElement('div');
+        div.className = 'entry';
+        div.innerHTML = `<span>#${i + 1} ${entry.name}</span> <span>$${entry.amount.toFixed(2)}</span>`;
+        container.appendChild(div);
+      });
     }
 
-    function toggleImage() {
-      const img = document.getElementById('hiddenImage');
-      img.classList.toggle('hidden');
-    }
-
-    function showRules() {
-      alert("Participants must discuss only the room's designated topic. Off-topic comments, especially in 'Validate Ideas', may result in a ban");
-    }
-
-    checkAuth();
+    loadLeaderboard();
+    window.submitBid = submitBid;
   </script>
 
 </body>
