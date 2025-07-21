@@ -2,127 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>BIDBOARD</title>
+  <title>Supabase Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
     body {
-      font-family: sans-serif;
-      background: #f9f9f9;
+      font-family: Arial, sans-serif;
       text-align: center;
-      padding: 2rem;
+      margin-top: 100px;
     }
-    .cta-button {
-      background: linear-gradient(to right, #8e2de2, #4a00e0);
-      border: none;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 25px;
+    input, button {
+      margin: 10px;
+      padding: 10px;
       font-size: 1rem;
-      cursor: pointer;
-    }
-    .leaderboard {
-      margin-top: 2rem;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      background: white;
-      border-radius: 10px;
-      padding: 1rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .entry {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #eee;
-    }
-    .entry:last-child {
-      border-bottom: none;
-    }
-    #formContainer {
-      display: none;
-      margin-top: 1rem;
-    }
-    input {
-      padding: 0.5rem;
-      margin: 0.5rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
     }
   </style>
 </head>
 <body>
+  <h2>Login to Supabase</h2>
+  <input type="email" id="email" placeholder="Email" required />
+  <br>
+  <input type="password" id="password" placeholder="Password" required />
+  <br>
+  <button onclick="login()">Login</button>
+  <p id="status"></p>
 
-  <h1>BIDBOARD</h1>
-  <p>Pay to flex. The internet’s most expensive leaderboard.</p>
-
-  <button class="cta-button" onclick="showForm()">CLAIM YOUR SPOT</button>
-
-  <div id="formContainer">
-    <input type="text" id="nameInput" placeholder="Your Name" />
-    <input type="number" id="amountInput" placeholder="Amount in $" />
-    <button onclick="submitBid()">Submit</button>
-  </div>
-
-  <div class="leaderboard" id="leaderboard">
-    <!-- Entries will be loaded here -->
-  </div>
-
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-
-    const supabaseUrl = 'https://YOUR_SUPABASE_URL.supabase.co' // <-- Replace this
-    const supabaseKey = 'YOUR_SUPABASE_ANON_KEY' // <-- Replace this
-    const supabase = createClient(supabaseUrl, supabaseKey)
-
-    function showForm() {
-      document.getElementById('formContainer').style.display = 'block';
-    }
-
-    async function submitBid() {
-      const name = document.getElementById('nameInput').value.trim();
-      const amount = parseFloat(document.getElementById('amountInput').value);
-
-      if (!name || isNaN(amount) || amount <= 0) {
-        alert("Enter valid name and amount");
-        return;
-      }
-
-      const { error } = await supabase.from('bids').insert([{ name, amount }]);
-
-      if (error) {
-        alert("Error saving bid");
-        console.error(error);
-      } else {
-        document.getElementById('nameInput').value = '';
-        document.getElementById('amountInput').value = '';
-        loadLeaderboard();
-      }
-    }
-
-    async function loadLeaderboard() {
-      const { data, error } = await supabase
-        .from('bids')
-        .select('*')
-        .order('amount', { ascending: false });
-
-      if (error) {
-        console.error("Fetch error", error);
-        return;
-      }
-
-      const container = document.getElementById('leaderboard');
-      container.innerHTML = '';
-      data.forEach((entry, i) => {
-        const div = document.createElement('div');
-        div.className = 'entry';
-        div.innerHTML = `<span>#${i + 1} ${entry.name}</span> <span>$${entry.amount.toFixed(2)}</span>`;
-        container.appendChild(div);
-      });
-    }
-
-    loadLeaderboard();
-    window.submitBid = submitBid;
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
